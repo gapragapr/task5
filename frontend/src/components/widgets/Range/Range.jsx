@@ -10,6 +10,7 @@ const Range = () => {
 
     useEffect(() => {
         dispatch(setAppParam({param: 'mistakesCount', value: Number(rangeValue)}))
+        console.log(rangeValue)
     }, [rangeValue])
 
     const onChangeRange = (e) => {

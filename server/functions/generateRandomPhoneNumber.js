@@ -16,7 +16,7 @@ const generateRandomPhoneNumber = (region, seed, mistakesCount) => {
 
     const selectedFormat = formatedVariants[localeFaker.number.int({max: formatedVariants.length - 1})]
 
-    let result = generateMistake(seed, mistakesCount, localeFaker.string.numeric(selectedFormat))
+    let result = generateMistake(seed, mistakesCount, localeFaker.phone.number(selectedFormat))
     
     return result
 

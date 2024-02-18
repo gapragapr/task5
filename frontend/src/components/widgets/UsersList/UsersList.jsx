@@ -53,33 +53,36 @@ const UsersList = () => {
         })()
     }, [queryParams.region, queryParams.mistakesCount, queryParams.seed])
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-               setEndVisible(true)
-            } else {
-                setEndVisible(false)
-            }
-        };
-       
-        window.addEventListener('scroll', handleScroll); 
-      }, []);
+    
+    const handleScroll = () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+           setEndVisible(true)
+        } else {
+            setEndVisible(false)
+        }
+    };
+   
+    window.addEventListener('scroll', handleScroll); 
+    
 
     useEffect(() => {
         (async() => {
-            try {
-                let params = {
-                    region: queryParams.region || queryParams.defaultRegion,
-                    seed: queryParams.seed,
-                    mistakesCount: queryParams.mistakesCount,
-                    fakeDataCount: queryParams.fakeDataCount,
-                    pageIndex: queryParams.pageIndex + 1,
-                    isFirstQuery: false,
-                };
-                const response = await getUsers(params);
-                console.log(queryParams.pageIndex)
-            } catch (e) {
-                console.log(e);
+            if (endVisible) {
+                try {
+                    let params = {
+                        region: queryParams.region || queryParams.defaultRegion,
+                        seed: queryParams.seed,
+                        mistakesCount: queryParams.mistakesCount,
+                        fakeDataCount: queryParams.fakeDataCount,
+                        pageIndex: queryParams.pageIndex + 1,
+                        isFirstQuery: false,
+                    };
+                    const response = await getUsers(params);
+                    console.log(response.data)
+                    console.log(queryParams.pageIndex)
+                } catch (e) {
+                    console.log(e);
+                }
             }
         })()
     }, [endVisible])
